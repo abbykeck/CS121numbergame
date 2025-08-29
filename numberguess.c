@@ -1,6 +1,5 @@
-# Guess the number game in C
-## Algorithm steps
-1. include stdio, stdlib, time
+/*
+ * 1. include stdio, stdlib, time
 1. Create character array for user's name
 1. Create an int variable for the correct number and fill it with a random number seeded from time
 1. Use the modulus operator to get the number within the 1-100 range
@@ -28,3 +27,45 @@
 1. Else
     1. Print out a line telling the user they could've taken less turns
 1. End program
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+	char name[20];
+	srand(time(NULL));
+	int correct = rand();
+	// printf("Random number: %d \n", correct);
+	correct = correct % 100;
+	// printf("Random number modulo 100: %d \n", correct);
+	int turnsTaken = 1;
+	printf("Hello, what is your name? ");
+	scanf("%s", name);
+	printf("Nice to meet you,  %s! Let's play a game. \n", name);
+	int keepGoing = 1;
+	int guess;
+	while (keepGoing == 1) {
+		printf("Turn %d: Please guess a number: ", turnsTaken);
+		scanf("%d", &guess);
+		if (guess == correct) {
+			keepGoing = 0;
+			printf("You got it! \n");
+		} else if (guess > correct) {
+			printf("Too high \n");
+			turnsTaken++;
+		} else {
+			printf("Too low \n");
+			turnsTaken++;
+		} // end if
+	} // end while
+	if (turnsTaken < 7) {
+		printf("Great job! \n");
+	} else if (turnsTaken == 7) {
+		printf("You took an average amount of turns to guess the right answer \n");
+	} else {
+		printf("Can you find a faster way to get the correct number? \n");
+	} // end if
+	return 0;
+} // end main
